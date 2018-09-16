@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>div {
+    width: 100px;
+    height: 100px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+ body{
+ background: url(https://subtlepatterns.com/patterns/scribble_light.png) #FFF;
+ }
+</style>
+<title>The Store</title>
+<body>
+
+<h1 style="text-align:center;"><font color="red"><b>Payment details incorrect</b></font></h1>
+
+<div>
+<p>
+<form action='/catalog/{{data}}'>
+<button class ="w3-button w3-black" onclick="parentNode.submit();"> Go to Catalog </button>
+</form>
+<form action='/cart/{{data}}'>
+<button class ="w3-button w3-black" onclick="parentNode.submit();"> Go to Cart </button>
+</form>
+</p>
+</div>
+</body>

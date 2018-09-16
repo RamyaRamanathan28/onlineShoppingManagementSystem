@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<title>Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href='/static/styles/totalcss.css' rel='stylesheet' type='text/css'>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+ <style>
+ body{
+ background: url(https://subtlepatterns.com/patterns/scribble_light.png) #FFF;
+ }
+ img {
+     border: 1px solid #ddd;
+     border-radius: 4px;
+     padding: 5px;
+     width: 200px;
+     max-width: 100%;
+     height: 200px;
+     object-fit: contain;
+ }
+ </style>
+<script type="text/javascript">
+
+$('id02').on('show.bs.modal', function(e) {
+  var id = (e.relatedTarget).data(id);
+
+});
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+</script>
+
+<script>
+var some = 1;
+
+function breakCheck(){
+
+  if ((some%2)==0)
+  {
+    document.write('<div class="w3-row w3-grayscale">');
+    console.log('1');
+  }
+
+}
+
+function breakCheck2(){
+  if ((some%2)==1){
+    document.write('</div>');
+    document.write('<p></p>');
+
+    console.log('2');
+  }
+  some = some + 1;
+}
+
+
+</script>
+
+<body>
+  <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+    <button onclick="w3_close()" class="w3-bar-item w3-medium w3-blue">Close &times;</button>
+    <a href="/change_password/{{custid}}" class="w3-bar-item w3-button w3-gray">Change Password</a>
+    <a href="/accountDetails/{{custid}}" class="w3-bar-item w3-button w3-gray">View Account Details</a>
+    <a href="/logout/{{custid}}" class="w3-bar-item w3-button w3-gray">Logout</a>
+  </div>
+  <!-- Page Content -->
+  <div class="w3-black ">
+
+    <button class="w3-button w3-black w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
+    <h1 style="text-align:left;font-weight:bold;">
+      The Store.
+    <span style="float:right;size:5px">{{cname}}'s Dashboard</span>
+  </h1>
+
+  </div>
+  <p> </p>
+
+
+    <div class="w3-bar w3-black">
+      <button class="w3-bar-item w3-button tablink" id = 'btncart' onclick="location.href = '/cart/{{custid}}'">Cart</button>
+      <button class="w3-bar-item w3-button tablink" id = 'btncatalog' onclick="location.href = '/catalog/{{custid}}'">Catalog</button>
+      <button class="w3-bar-item w3-button tablink w3-blue" id = 'btnhistory' onclick="location.href = '/orderHistory/{{custid}}'">Order History</button>
+      <button class="w3-bar-item w3-button tablink" id = 'btnreq' onclick="location.href = '/requests/{{custid}}'">Request</button>
+    </div>
+
+
+
+    <div id="orderhistory" class="w3-container w3-border city" style="display:block">
+
+<!--
+      <div class="w3-row w3-grayscale">
+        {% for item in history %}
+          <div class="w3-col l3 s6">
+          <div class="w3-container">
+            <div class="w3-display-container">
+              <img src="product.jpg" style="width:100%">
+              <div class="w3-display-middle w3-display-hover">
+              <form action = '\viewOrder'>
+                  <button class="w3-button w3-black" onclick = "location.href = '/viewOrder'">View</button>
+                  <input type = "hidden" name = 'view' value = '{{item[0]}}'>
+              </form>
+              </div>
+              </div>
+            </div>
+          </div>
+          <p>{{item[0]}}</p>
+          <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-black" value="feedback" data-toggle="modal" data-target="#id02" data-id="{{item[0]}}">Review</button>
+        </div>
+          {% endfor %}
+
+      </div>
+
+-->
+      <div class="w3-row">
+        {% for item in history %}
+          <div class="w3-col l3 s6">
+          <div class="w3-container">
+            <div class="w3-display-container">
+              <img src="{{item[4]}}" style="width:100%">
+            </div>
+            <p>{{item[0]}}<br><b>{{item[2]}}</b></p>
+            <p>{{item[1]}}</p>
+            <p> Quantity : {{item[5]}}</p>
+          </div>
+        </div>
+          {% endfor %}
+
+      </div>
+	  <div class="w3-col l3 s6">
+	  <h3> ORDER TOTAL:{{total}}</h3>
+	  </div>
+
+    </div>
+
+    <div id="id02" class="w3-modal">
+       <div class="w3-modal-content">
+         <div class="w3-container">
+           <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+           <form action='/orderHistory/{{custid}}' method = 'post' id='100'>
+   			</br>
+        <p></p>
+        <input type="hidden" id = 'orderID'>
+   			<input type='text' name='feedback' placeholder='Feedback' required>
+   			</br>
+   			<input type = 'submit'>
+   			</br>
+   		</form>
+         </div>
+       </div>
+     </div>
+   </div>
+
+
+
+<script>
+
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace("w3-gray", "w3-blue");
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace("w3-blue", "w3-gray");
+    }
+}
+
+function openRightMenu() {
+    document.getElementById("rightMenu").style.display = "block";
+}
+function w3_close() {
+    document.getElementById("rightMenu").style.display = "none";
+}
+function req_close(num) {
+    document.getElementById("Request"+num).style.display = "none";
+}
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-blue", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-blue";
+}
+
+</script>
+
+</body>
+</html>

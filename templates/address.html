@@ -1,0 +1,144 @@
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
+<link href='/static/styles/payment.css' rel='stylesheet' type='text/css'>
+<link href='/static/styles/totalcss.css' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href='/static/styles/totalcss.css' rel='stylesheet' type='text/css'>
+<title>The Store</title>
+<body>
+
+  <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+    <button onclick="w3_close()" class="w3-bar-item w3-medium w3-blue">Close &times;</button>
+    <a href="/change_password/{{custid}}" class="w3-bar-item w3-button w3-gray">Change Password</a>
+    <a href="/accountDetails/{{custid}}" class="w3-bar-item w3-button w3-gray">View Account Details</a>
+    <a href="/logout/{{custid}}" class="w3-bar-item w3-button w3-gray">Logout</a>
+  </div>
+  <!-- Page Content -->
+  <div class="w3-black ">
+
+    <button class="w3-button w3-black w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
+    <h1 style="text-align:left;font-weight:bold;">
+      The Store
+    <span style="float:right;size:5px">{{cname}}'s Dashboard</span>
+  </h1>
+  </div>
+<p> </p>
+
+
+  <div class="w3-bar w3-black">
+    <button class="w3-bar-item w3-button tablink" id = 'btncart' onclick="location.href = '/cart/{{custid}}'">Cart</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btncatalog' onclick="location.href = '/cart/{{custid}}'">Catalog</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btnhistory' onclick="location.href = '/orderHistory/{{custid}}'">Order History</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btnreq' onclick="location.href = '/requests/{{custid}}'">Request</button>
+    <button class="w3-bar-item w3-button tablink w3-blue" id = 'btnfeed' onclick="openCity(event,'Address')">Address</button>
+  </div>
+<div id="Address" class="w3-container w3-border city">
+<div class="step" name = "step2" id="step2">
+			<div class="title">
+				<h1>Billing Address</h1>
+			</div>
+		</div>
+		<div class="content" id="address">
+			<form class="go-right" action = "\address\{{custid}}" method='POST'>
+			{% if item %}
+				<div>
+				<input class = "w3-input" type="text" name="house_no" placeholder="{{item[0]}}" value="{{item[0]}}" id="house_no" pattern="^[0-9A-z/\-_# ]+$" required title="Enter only numbers" required ><label for="house_no">House Number</label>
+				</div>
+				<div>
+				<input class = "w3-input" type="text" name="street" placeholder="{{item[1]}}" value="{{item[1]}}" id="street" pattern="^[A-z0-9/\-_.,; ]+$" required title="Enter only characters" required><label for="street">Street Name</label>
+				</div>
+				<div>
+				<input class = "w3-input" type="text" name="area" placeholder="{{item[2]}}" value="{{item[2]}}" id="area"  pattern="^[A-z/\-.,; ]+$" required title="Enter only characters" required><label for="area">Area</label>
+				</div>
+				<div>
+				<input class = "w3-input" type="text" name="city" placeholder="{{item[3]}}" value="{{item[3]}}" id="city"  pattern="^[A-z ]+$" required title="Enter only characters" required><label for="city">City</label>
+				</div>
+				<div>
+				<input class = "w3-input" type="text" name="zip" placeholder="{{item[4]}}" value="{{item[4]}}" id="zip" pattern="^[0-9]{6}$" required title="Enter 6 digit zip code"><label for="zip">Zip Code</label>
+				</div>
+				<div>
+			{% endif %}
+				</p>
+				<button class ="w3-button w3-blue" onclick="parentNode.submit();"onclick="location:href ='/address/{{custid}}'"> Save Changes </button>
+				</div>
+				<div>
+				</div>
+				<!--<label for="street"> Street </label>
+				<input type="text" name="street" value="" id="street" placeholder="St.Marks Road" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter the street"/><label for="street">Street</label>
+				</div>
+				<div>
+				<input type="text" name="area" value="" id="area" placeholder="Indiranagar" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your Area"/><label for="area">Area</label>
+				</div>
+				<div>
+				<input type="text" name="city" value="" id="city" placeholder="Everytown" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Billing City"/><label for="city">City</label>
+				</div>
+				<div>
+				<input type="number" name="zip" value="" id="zip" placeholder="560075" data-trigger="change" data-validation-minlength="1" data-type="number" data-required="true" data-error-message="Enter Your Zip Code"/><label for="zip">Zip Code</label>
+				</div>-->
+			</form>
+
+		</div>
+		</div>
+</div>
+</body>
+<script>
+
+// Click on the "Jeans" link on page load to open the accordion for demo purposes
+//document.getElementById("btncatalog").click();
+
+
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace("w3-gray", "w3-blue");
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace("w3-blue", "w3-gray");
+    }
+}
+
+function openRightMenu() {
+    document.getElementById("rightMenu").style.display = "block";
+}
+function w3_close() {
+    document.getElementById("rightMenu").style.display = "none";
+}
+function req_close(num) {
+    document.getElementById("Request"+num).style.display = "none";
+}
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-blue", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-blue";
+}
+
+</script>

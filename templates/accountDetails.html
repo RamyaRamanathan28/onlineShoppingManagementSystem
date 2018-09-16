@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<title>The Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link href='/static/styles/totalcss.css' rel='stylesheet' type='text/css'>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script type="text/javascript">
+    $(function () {
+        $("#submit1").click(function () {
+            var password = $("#pass").val();
+            var confirmPassword = $("#repass").val();
+            if (password != confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
+        });
+    });
+    function addAdmin()
+      {
+      a=document.getElementById("auth").value;
+      console.log(a);
+
+        if(a==='A')
+      {
+          document.write("<a href=\"/admin/{{eid}}/addAdmin\" class=\"w3-bar-item w3-button w3-gray\">Add New Employee</a>");
+        }
+      }
+</script>
+
+<style>
+.name{
+  font:Montserrat;
+  color:teal;
+  size: 100px
+  padding: 100px 100px 100px 100px;
+}
+.email{
+  font:Montserrat;
+  color:black;
+  size: 20px
+  padding: 20px 20px 20px 40px;
+}
+.authorization{
+  font:Montserrat;
+  color:black;
+  size: 30px
+  padding: 20px 20px 20px 40px;
+}
+.username{
+  font:Montserrat;
+  color:black;
+  size: 30px
+  padding: 20px 20px 20px 40px;
+}
+.address{
+  font:Montserrat;
+  color:black;
+  size: 30px
+  padding: 20px 20px 20px 40px;
+}
+.div{
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+body{
+background: url(https://subtlepatterns.com/patterns/scribble_light.png) #FFF;
+}
+</style>
+<body>
+
+  <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+    <button onclick="w3_close()" class="w3-bar-item w3-medium w3-blue">Close &times;</button>
+    <a href="/change_password/{{eid}}" class="w3-bar-item w3-button w3-gray">Change Password</a>
+    <a href="/accountDetails/{{eid}}" class="w3-bar-item w3-button w3-gray">View Account Details</a>
+    <input type="hidden" name="auth" id="auth" value={{a}}>
+    <script>addAdmin();</script>
+    <a href="/logout/{{eid}}" class="w3-bar-item w3-button w3-gray">Logout</a>
+  </div>
+  <!-- Page Content -->
+  <div class="w3-black ">
+
+    <button class="w3-button w3-black w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
+    <h1 style="text-align:left;font-weight:bold;">
+      The Store
+    <span style="float:right;size:5px">{{cust[0]}}'s Dashboard</span>
+  </h1>
+  </div>
+<p> </p>
+
+
+  <div class="w3-bar w3-black">
+    <button class="w3-bar-item w3-button tablink" id = 'btnrequest' onclick="location.href = '/admin/{{eid}}/requests'">Requests</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btncateg' onclick="location.href = '/admin/{{eid}}/modify-category'">Modify Categories</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btnprod' onclick="location.href = '/admin/{{eid}}/modify-products'">Modify Products</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btnprod' onclick="location.href = '/admin/{{eid}}/feedback'">Feedback</button>
+    <button class="w3-bar-item w3-button tablink " id = 'btnfeed' onclick="location.href = '/admin/{{eid}}/payment_history'">Payment History</button>
+    <button class="w3-bar-item w3-button tablink w3-blue" id = 'btnfeed' onclick="openCity(event,'SignUp')">Your account details</button>
+  </div>
+
+<div id="SignUp" class="w3-container w3-border city" style="display:block">
+  <body>
+  <div class = "w3-container w3-center name w3-padding-64 w3-xlarge" >
+    <b>Name: {{cust[0]}}</b>
+  </div>
+  <div class = "w3-container w3-center email w3-padding-16 w3-large">
+    Email: {{cust[1]}}
+  </div>
+  <div class = "w3-container w3-center authorization w3-padding-16 w3-large">
+    Authorization: {{auth}}
+  </div>
+  <div class = "w3-container w3-center username w3-padding-16 w3-large">
+    Username: {{cust[2]}}
+  </div>
+  </body>
+</div>
+</body>
+<script>
+
+// Click on the "Jeans" link on page load to open the accordion for demo purposes
+//document.getElementById("btncatalog").click();
+
+
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace("w3-gray", "w3-blue");
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace("w3-blue", "w3-gray");
+    }
+}
+
+function openRightMenu() {
+    document.getElementById("rightMenu").style.display = "block";
+}
+function w3_close() {
+    document.getElementById("rightMenu").style.display = "none";
+}
+function req_close(num) {
+    document.getElementById("Request"+num).style.display = "none";
+}
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-red";
+}
+
+</script>
+</html>

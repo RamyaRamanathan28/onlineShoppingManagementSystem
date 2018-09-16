@@ -1,0 +1,255 @@
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href='/static/styles/totalcss.css' rel='stylesheet' type='text/css'>
+<style>
+body{
+background: url(https://subtlepatterns.com/patterns/scribble_light.png) #FFF;
+}
+</style>
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    $('button[name = Edit]').click(function(){
+    var id = $(this).attr('id');
+    $('#cat_id2', '#form2').val(id)
+    });
+
+
+});
+
+$(document).ready(function() {
+
+    $('button[name = Delete]').click(function(){
+    var id = $(this).attr('id');
+    $('#cat_id3', '#form1').val(id)
+    });
+
+
+});
+
+function addAdmin()
+  {
+	a=document.getElementById("auth").value;
+	console.log(a);
+
+    if(a==='A')
+	{
+      document.write("<a href=\"/admin/{{eid}}/addAdmin\" class=\"w3-bar-item w3-button w3-gray\">Add New Employee</a>");
+    }
+  }
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<title>The Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<body>
+<div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+  <button onclick="w3_close()" class="w3-bar-item w3-medium w3-blue">Close &times;</button>
+  <a href="/change_password/{{eid}}" class="w3-bar-item w3-button w3-gray">Change Password</a>
+  <a href="/accountDetails/{{eid}}" class="w3-bar-item w3-button w3-gray">View Account Details</a>
+  <input type="hidden" name="auth" id="auth" value={{a}}>
+  <script>addAdmin();</script>
+  <a href="/logout/{{eid}}" class="w3-bar-item w3-button w3-gray">Logout</a>
+</div>
+<!-- Page Content -->
+<div class="w3-black ">
+
+  <button class="w3-button w3-black w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
+  <h1 style="text-align:left;font-weight:bold;">
+    The Store
+  <span style="float:right;size:5px">{{ename}}'s Dashboard</span>
+</h1>
+
+</div>
+<p> </p>
+
+
+  <div class="w3-bar w3-black">
+    <button class="w3-bar-item w3-button tablink" id = 'btnrequest' onclick="location.href = '/admin/{{eid}}/requests'">Requests</button>
+    <button class="w3-bar-item w3-button tablink w3-blue" id = 'btncateg' onclick="openCity(event,'category')">Modify Categories</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btnprod' onclick="location.href = '/admin/{{eid}}/modify-products'">Modify Products</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btnfeed' onclick="location.href = '/admin/{{eid}}/feedback'">Feedback</button>
+    <button class="w3-bar-item w3-button tablink " id = 'btnfeed' onclick="location.href = '/admin/{{eid}}/payment_history'">Payment History</button>
+
+  </div>
+  <div class = "w3-container">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+  <p>{{message}}</p>
+  {% endfor%}
+  {% endif %}
+  {% endwith %}
+  </div>
+<div id="category" class="w3-container w3-border city" style="display:block">
+<div class="container">
+	<div class="row">
+
+
+        <div class="col-md-12">
+        <h4>Category</h4>
+        <div class="table-responsive">
+
+
+              <table id="mytable" class="table table-bordred table-striped">
+
+                   <thead>
+                    <th>ID</th>
+                     <th>Name</th>
+                     <th>Description</th>
+
+					  <th>Delete</th>
+
+                       <th>Edit</th>
+                   </thead>
+    <tbody>
+       {% for item in data %}
+<tr>
+    <td>{{item[0]}}</td>
+    <td>{{item[1]}}</td>
+    <td>{{item[2]}}</td>
+	<td><button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black"  name="Delete" id="{{item[0]}}" value="Delete">Delete</button></td>
+	<td><button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-black"  name="Edit" id="{{item[0]}}" value="Edit">Edit</button></td>
+    <br/>
+</tr>
+{% endfor %}
+
+    </tbody>
+
+</table>
+
+
+        </div>
+	</div>
+</div>
+<div>
+<h1>Add category</h1>
+    <form action='/admin/{{eid}}/modify-category' class="w3-container" method = 'post'>
+      <br><br>
+      <label>Category Name</label>
+      <input class="w3-input" type='text' name='cat_name' required pattern="^[A-z /\'\-._#!]+$" title="Enter only valid characters" >
+      <br>
+      <label>Category Description</label>
+       <input class="w3-input" type='text' name='cat_desc' pattern="^[A-z0-9 %/\'\-.,;_#!]+$" title="Enter only valid characters" required>
+       <br>
+      <button  class="w3-button w3-black" onclick="parentNode.submit();" >Add</button>
+      <br><br>
+    </form>
+</div>
+<div class="w3-container">
+
+
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <form action='/admin/{{eid}}/modify-category' class="w3-container" method = 'Post' id='form1'>
+          <br><br>
+      <label> Are you sure you want to delete this Category? </label>
+    <br><br>
+			<input type='hidden' id ='cat_id3' name='cat_id3' value=''/>
+			<button  class="w3-button w3-black" onclick="parentNode.submit();" >Delete</button>
+			<br><br>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ <div id="id02" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <form action='/admin/{{eid}}/modify-category' class = 'w3-container' method = 'Post' id='form2'>
+          <br><br>
+          <label>Category Name</label>
+      <input class="w3-input" type='text' name='cat_name2' pattern="^[A-z /\'\-._#!]+$" required>
+			<br>
+      <label>Category Description</label>
+			<input class="w3-input" type='text' name='cat_desc2' required pattern="^[A-z0-9 %/\'\-.,;_#!]+$" title="Enter only characters">
+			<br>
+			<input class="w3-input" type='hidden' id ='cat_id2' name='cat_id2' value='' required>
+      <br><br>
+      <p>
+        <button  class="w3-button w3-black" onclick="parentNode.submit();" >Edit</button>
+
+      </p>
+			<br>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+
+// Click on the "Jeans" link on page load to open the accordion for demo purposes
+document.getElementById("btncatalog").click();
+
+
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace("w3-gray", "w3-blue");
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace("w3-blue", "w3-gray");
+    }
+}
+
+function openRightMenu() {
+    document.getElementById("rightMenu").style.display = "block";
+}
+function w3_close() {
+    document.getElementById("rightMenu").style.display = "none";
+}
+function req_close(num) {
+    document.getElementById("Request"+num).style.display = "none";
+}
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-blue", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-blue";
+}
+
+</script>

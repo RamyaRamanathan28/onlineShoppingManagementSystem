@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+<title>The Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link href='/static/styles/totalcss.css' rel='stylesheet' type='text/css'>
+<style>
+body{
+background: url(https://subtlepatterns.com/patterns/scribble_light.png) #FFF;
+}
+h1{
+  font-weight: bold;
+}
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script type="text/javascript">
+    $(function () {
+        $("#submit1").click(function () {
+            var password = $("#pass").val();
+            var confirmPassword = $("#repass").val();
+            if (password != confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#submit1").click(function () {
+            var password = $("#phone").val();
+            var confirmPassword = $("#altphone").val();
+            if (password == confirmPassword) {
+                alert("Phone numbers are the same.");
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+</script>
+
+<div class="w3-black ">
+  <h1>The Store</h1>
+</div>
+<div class="w3-container">
+  <p>Click on sign up to register </p>
+  <p> Already a member? Log in </p>
+  <div class="w3-bar w3-white">
+    <button class="w3-bar-item w3-button tablink" onclick="location.href = '/signin/None'">Login</button>
+    <button class="w3-bar-item w3-button tablink w3-blue" onclick="openCity(event,'SignUp')">Sign Up</button>
+  </div>
+
+  <div id="SignUp" class="w3-container w3-border city" style="display:block">
+    <h2>Sign Up</h2>
+    <form class="w3-container" method = 'POST' formaction="/signUp/None">
+    <p>
+      <label>Name</label>
+    	<input name = 'name' class="w3-input" type="text" pattern="^[A-z ]+$" title="only characters" required autofocus>
+    </p>
+	<!--
+	<label>Mobile No.:</label>
+    <input type="text" name="phoneno" id="phoneno" required="required" pattern="^[0-9]{10}$"  title="enter 10 digit no"  /><br />
+	-->
+    <p>
+      <label>Email ID</label>
+    	<input name = 'email' class="w3-input" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+    </p>
+    <p>
+      <label>Phone No.</label>
+    	<input name = 'phone' id = 'phone' class="w3-input" type="text" required maxlength="10" pattern="[789][0-9]{9}" title="Phone number with 10 digits">
+    </p>
+    <p>
+      <label>Alternate Phone No. (Optional)</label>
+    	<input name = 'altphone' id = 'altphone' class="w3-input" type="text" maxlength="10" pattern="[789][0-9]{9}" title="Phone number with 10 digits">
+    </p>
+    <p>
+      <label>Username(8 characters minimum)</label>
+    	<input name = 'user' class="w3-input" pattern="^[0-9A-z/\-_#]+$" type="text" required title = 'Please enter eight valid characters'>
+    </p>
+    <p>
+    	<label>Password(8 characters minimum)</label>
+    	<input name = 'password' class="w3-input" pattern=".{8,}" id='pass' title="8 characters minimum" type="password" required>
+    </p>
+    <p>
+    	<label>Retype Password</label>
+    	<input name = 'password' class="w3-input" pattern=".{8,}" id='repass' title="8 characters minimum" type="password" required >
+		<span id='message'></span>
+    </p>
+    <p>
+      <label>House Number</label>
+    <input class = "w3-input" type="text" name="house_no" id="house_no" pattern="^[0-9A-z/\-_# ]+$" required title="Enter valid data" required >
+  </p>
+    <p>
+      <label>Street Name</label>
+    <input class = "w3-input" type="text" name="street" id="street" pattern="^[A-z0-9/\-_.,; ]+$" required title="Enter valid data" required>
+  </p>
+    <p>
+      <label>Area</label>
+    <input class = "w3-input" type="text" name="area" id="area"  pattern="^[A-z/\-.,; ]+$" required title="Enter valid data" required>
+  </p>
+    <p>
+      <label>City</label>
+    <input class = "w3-input" type="text" name="city" id="city"  pattern="^[A-z ]+$" required title="Enter only characters" required>
+  </p>
+    <p>
+      <label>Zip Code</label>
+    <input class = "w3-input" type="text" name="zip" id="zip" pattern="^[0-9]{6}$" required title="Enter 6 digit zip code">
+  </p>
+    <p>
+     <button class="w3-btn w3-blue" formaction="/signUp/None" onclick="parentNode.submit();" id="submit1">Sign Me Up</button>
+    </p>
+    </form>
+  </div>
+</div>
+{% if error %}
+
+{% if error != 'None' %}
+<p>{{ error }}</p>
+{% endif %}
+{% endif %}
+<script>
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-blue", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-blue";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600' rel='stylesheet' type='text/css'>
+<link href='/static/styles/payment.css' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href='/static/styles/totalcss.css' rel='stylesheet' type='text/css'>
+
+<style>
+body{
+background: url(https://subtlepatterns.com/patterns/scribble_light.png) #FFF;
+}
+</style>
+<title>The Store</title>
+<body>
+
+  <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+    <button onclick="w3_close()" class="w3-bar-item w3-medium w3-blue">Close &times;</button>
+    <a href="/change_password/{{custid}}" class="w3-bar-item w3-button w3-gray">Change Password</a>
+    <a href="/accountDetails/{{custid}}" class="w3-bar-item w3-button w3-gray">View Account Details</a>
+    <a href="/logout/{{custid}}" class="w3-bar-item w3-button w3-gray">Logout</a>
+  </div>
+  <!-- Page Content -->
+  <div class="w3-black ">
+
+    <button class="w3-button w3-black w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
+    <h1 style="text-align:left;font-weight:bold;">
+      The Store
+    <span style="float:right;size:5px">{{cname}}'s Dashboard</span>
+  </h1>
+  </div>
+<p> </p>
+
+
+  <div class="w3-bar w3-black">
+    <button class="w3-bar-item w3-button tablink" id = 'btncart' onclick="location.href = '/cart/{{custid}}'">Cart</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btncatalog' onclick="location.href = '/cart/{{custid}}'">Catalog</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btnhistory' onclick="location.href = '/orderHistory/{{custid}}'">Order History</button>
+    <button class="w3-bar-item w3-button tablink" id = 'btnreq' onclick="location.href = '/requests/{{custid}}'">Request</button>
+    <button class="w3-bar-item w3-button tablink w3-blue" id = 'btnfeed' onclick="openCity(event,'Verif')">Payment Verification</button>
+  </div>
+
+		<div id="Verif" class="w3-container w3-border city">
+		<div class="step" name = "step3" id="step3">
+			<div class="title">
+				<h1>Verification</h1>
+			</div>
+		</div>
+		<div class="content" id="payment">
+			<div class="left credit_card">
+			<form class="go-right" action='/verification/{{custid}}/{{item}}' method='Post'>
+				<div>
+				<div type="text" name="card_number" value="" id="card_number" /><h2>CARD NUMBER: {{item}}</h2></div>
+				</div>
+				<div>
+				<input class = "w3-input" type="password" name="password" value="" id="password" pattern = ".{5,}" placeholder="**********" required /><label for="card_number">Password</label>
+				</div>
+
+				<div>
+				</p>
+				<button class ="w3-button w3-blue" onclick="parentNode.submit();" onclick="location:href ='/verification/{{custid}}/{{item}}'"> Make Payment </button>
+				</div>
+			      </form>
+			</div>
+			</div>
+		</div>
+	</body>
+	<script>
+
+	// Click on the "Jeans" link on page load to open the accordion for demo purposes
+	//document.getElementById("btncatalog").click();
+
+
+	// Script to open and close sidebar
+	function w3_open() {
+	    document.getElementById("mySidebar").style.display = "block";
+	    document.getElementById("myOverlay").style.display = "block";
+	}
+
+	function w3_close() {
+	    document.getElementById("mySidebar").style.display = "none";
+	    document.getElementById("myOverlay").style.display = "none";
+	}
+
+	function myFunction(id) {
+	    var x = document.getElementById(id);
+	    if (x.className.indexOf("w3-show") == -1) {
+	        x.className += " w3-show";
+	        x.previousElementSibling.className =
+	        x.previousElementSibling.className.replace("w3-gray", "w3-blue");
+	    } else {
+	        x.className = x.className.replace(" w3-show", "");
+	        x.previousElementSibling.className =
+	        x.previousElementSibling.className.replace("w3-blue", "w3-gray");
+	    }
+	}
+
+	function openRightMenu() {
+	    document.getElementById("rightMenu").style.display = "block";
+	}
+	function w3_close() {
+	    document.getElementById("rightMenu").style.display = "none";
+	}
+	function req_close(num) {
+	    document.getElementById("Request"+num).style.display = "none";
+	}
+	function openCity(evt, cityName) {
+	  var i, x, tablinks;
+	  x = document.getElementsByClassName("city");
+	  for (i = 0; i < x.length; i++) {
+	      x[i].style.display = "none";
+	  }
+	  tablinks = document.getElementsByClassName("tablink");
+	  for (i = 0; i < x.length; i++) {
+	      tablinks[i].className = tablinks[i].className.replace(" w3-blue", "");
+	  }
+	  document.getElementById(cityName).style.display = "block";
+	  evt.currentTarget.className += " w3-blue";
+	}
+
+	</script>
