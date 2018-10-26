@@ -1,2 +1,2 @@
 # Online Shopping Management System
-Python flask based online shopping management system
+An online store, developed in Python 2.7 with Flask. 
